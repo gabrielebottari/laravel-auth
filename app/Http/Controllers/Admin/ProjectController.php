@@ -6,6 +6,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
+
 // Models
 use App\Models\Project;
 
@@ -27,25 +30,28 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        //
+        // La validazione è già avvenuta, quindi possiamo procedere al salvataggio
+        $validated = $request->validated();
+        Project::create($validated);
+        return redirect()->route('projects.index')->with('success', 'Project created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $slug)
+    public function show($slug)
     {
-        $project = Project::where('slug', $slug)->firstOrFail();
-
-        return view('admin.projects.show', compact('project'));
+        $project = Project::where('slug', $slug)->firstOrFail(); // Trova il progetto tramite slug
+    
+        return view('admin.projects.show', compact('project')); // Passa il singolo progetto alla view
     }
 
     /**
@@ -55,13 +61,13 @@ class ProjectController extends Controller
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Project $project)
+  
+    public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        // Anche qui, la validazione è avvenuta
+        $validated = $request->validated();
+        $project->update($validated);
+        return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
     }
 
     /**
