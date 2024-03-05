@@ -26,7 +26,7 @@ Route::prefix('admin')
     ->group(function () {
 
     Route::get('/dashboard', [AdminMainController::class, 'dashboard'])->name('dashboard');
-    
+    //rotta che gestisce i progetti
     Route::resource('projects', AdminProjectController::class);
 });
 

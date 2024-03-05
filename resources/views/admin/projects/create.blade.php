@@ -4,7 +4,7 @@
 
 @section('main-content')
 <div class="container">
-    <h2>{{ isset($project) ? 'Edit' : 'Create' }} Project</h2>
+    <h2>Create New Project</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -16,35 +16,31 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ isset($project) ? route('admin.projects.update', $project->id) : route('admin.projects.store') }}">
+    <form method="POST" action="{{ route('admin.projects.store') }}">
         @csrf
-        @if(isset($project))
-            @method('PUT')
-        @endif
 
-        <!-- Form fields -->
-
+        <!-- Campi del form qui -->
         <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $project->title ?? '') }}" required>
+            <label for="title" class="form-label">Titolo</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" required>
         </div>
 
         <div class="mb-3">
-            <label for="image" class="form-label">Image URL</label>
-            <input type="text" class="form-control" id="image" name="image" value="{{ old('image', $project->image ?? '') }}">
+            <label for="image" class="form-label">URL dell'immagine</label>
+            <input type="text" class="form-control" id="image" name="image" value="{{ old('image') }}">
         </div>
 
         <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" id="description" name="description" required>{{ old('description', $project->description ?? '') }}</textarea>
+            <label for="description" class="form-label">Descrizione</label>
+            <textarea class="form-control" id="description" name="description" required>{{ old('description') }}</textarea>
         </div>
 
         <div class="mb-3">
-            <label for="date" class="form-label">Date</label>
-            <input type="date" class="form-control" id="date" name="date" value="{{ old('date', isset($project) ? $project->date->format('Y-m-d') : '') }}" required>
+            <label for="date" class="form-label">Data</label>
+            <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">{{ isset($project) ? 'Update' : 'Submit' }}</button>
+        <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
 @endsection

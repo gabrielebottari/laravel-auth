@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 
+use Illuminate\Support\Str;
+
 // Models
 use App\Models\Project;
 
@@ -30,7 +32,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $project = new Project(); // Inizializza una nuova istanza vuota o predefinita
+        // Imposta eventuali valori predefiniti qui
+        return view('admin.projects.create', compact('project'));
     }
 
     /**
@@ -40,8 +44,12 @@ class ProjectController extends Controller
     {
         // La validazione è già avvenuta, quindi possiamo procedere al salvataggio
         $validated = $request->validated();
+
+        $validated['slug'] = Str::slug($validated['title']);
+
         Project::create($validated);
-        return redirect()->route('projects.index')->with('success', 'Project created successfully.');
+
+        return redirect()->route('admin.projects.index')->with('success', 'Project created successfully.');
     }
 
     /**
@@ -57,9 +65,10 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
+    public function edit($slug)
     {
-        //
+        $project = Project::where('slug', $slug)->firstOrFail();
+        return view('admin.projects.edit', compact('project'));
     }
   
     public function update(UpdateProjectRequest $request, Project $project)
@@ -67,14 +76,17 @@ class ProjectController extends Controller
         // Anche qui, la validazione è avvenuta
         $validated = $request->validated();
         $project->update($validated);
-        return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
+        return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy($slug)
     {
-        //
+        $project = Project::where('slug', $slug)->firstOrFail();
+        $project->delete();
+    
+        return redirect()->route('admin.projects.index')->with('success', 'Progetto eliminato con successo!');
     }
 }

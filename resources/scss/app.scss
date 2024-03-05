@@ -1,5 +1,14 @@
 @import "~bootstrap/scss/bootstrap";
 
 main {
-    background-color: lightcoral;
+    background-color: green;
+}
+
+.card {
+    height: 500px;
+    border: none;
+
+    .card-body {
+        overflow: auto;
+    }
 }

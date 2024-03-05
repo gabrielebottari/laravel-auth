@@ -2,19 +2,31 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Project extends Model
 {
-    use HasFactory;
+    
+    protected $fillable = ['title', 'slug', 'image', 'description', 'date'];
 
-    protected $fillable = [
-        'id',
-        'title',
-        'slug',
-        'image',
-        'description',
-        'date',
-    ];
+    /**
+     * The "booting" method of the model.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+    
+        static::creating(function ($project) {
+
+            $project->slug = Str::slug($project->title);
+
+        });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug'; // Usa 'slug' per il Route Model Binding
+    }
 }
