@@ -1,10 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-// Controllers
-use App\Http\Controllers\MainController;
-use App\Http\Controllers\Admin\MainController as AdminMainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,15 +14,18 @@ use App\Http\Controllers\Admin\MainController as AdminMainController;
 |
 */
 
-Route::get('/', [MainController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::prefix('admin')
-    ->name('admin.')
-    ->middleware('auth')
-    ->group(function () {
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-    Route::get('/dashboard', [AdminMainController::class, 'dashboard'])->name('dashboard');
-
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
