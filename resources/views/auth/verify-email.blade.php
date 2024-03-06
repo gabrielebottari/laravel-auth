@@ -27,7 +27,7 @@
             @csrf
 
             <div>
-                <button type="submit">
+                <button type="submit" class="btn btn-primary">
                     Resend Verification Email
                 </button>
             </div>
@@ -36,7 +36,7 @@
         <form method="POST" action="{{ route('logout') }}">
             @csrf
 
-            <button type="submit">
+            <button type="submit" class="btn btn-primary">
                 Log Out
             </button>
         </form>

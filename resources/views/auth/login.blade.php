@@ -13,7 +13,7 @@
 @endif
 
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="w-50">
         @csrf
 
 
@@ -43,12 +43,12 @@
 
         <div class="mt-4">
             @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}">
+                <a href="{{ route('password.request') }}" class="me-3">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
 
-            <button type="submit">
+            <button type="submit" class="btn btn-primary">
                 Log in
             </button>
         </div>

@@ -15,19 +15,19 @@
     </div>
     @endif
 
-    <form method="POST" action="{{ route('password.email') }}">
+    <form method="POST" action="{{ route('password.email') }}" class="w-50">
         @csrf
 
         <!-- Email Address -->
         <div>
-            <label for="email">
+            <label for="email" class="form-label">
                 Email
             </label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email" class="form-control">
         </div>
 
         <div>
-            <button type="submit">
+            <button type="submit" class="btn btn-primary">
                 Email Password Reset Link
             </button>
         </div>

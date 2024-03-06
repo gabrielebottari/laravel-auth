@@ -15,19 +15,19 @@
     </div>
     @endif
 
-    <form method="POST" action="{{ route('password.confirm') }}">
+    <form method="POST" action="{{ route('password.confirm') }}" class="w-50">
         @csrf
 
         <!-- Password -->
         <div>
-            <label for="password">
+            <label for="password" class="form-label">
                 Password
             </label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password" class="form-control">
         </div>
 
         <div>
-            <button type="submit">
+            <button type="submit" class="btn btn-primary">
                 Confirm
             </button>
         </div>
