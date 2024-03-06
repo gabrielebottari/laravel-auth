@@ -18,7 +18,7 @@ class ProjectSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 12) as $index) {
             DB::table('projects')->insert([
                 'title' => $faker->sentence(6, true), // Genera un titolo fittizio
                 'slug' => Str::slug($faker->unique()->sentence(6, true), '-'), // Genera uno slug univoco

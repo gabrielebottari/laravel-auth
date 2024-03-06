@@ -3,15 +3,18 @@
 @section('main-content')
     <div class="row">
         <div class="col">
-            <div class="card">
-                <div class="card-body">
+            <div class="bg-primary-subtle">
+                <div class="p-5">
                     <h1 class="text-center text-primary">
-                        Welcome!
+                        Boolfolio
                     </h1>
-                    <br>
-                    La welcome page è una pagina pubblica (NON protetta)
 
-                    <a class="btn btn-primary " href="{{ route('projects.index') }}">Vai a tutti i progetti</a>
+                    <h3 class="mb-3">Welcome Dear Guest!</h3>
+                    <a class="btn btn-primary mb-3" href="{{ route('projects.index') }}">Dai un'occhiata a tutti i Progetti <i class="fa-solid fa-diagram-project"></i></a>
+
+                    <p class="mb-3">Ricorda: per aggiungere o modificare i Progetti devi fare il login!</p>
+
+                    <a class="btn btn-success" href="{{ route('login') }}">Login <i class="fa-solid fa-right-to-bracket"></i></a>
                 </div>
             </div>
         </div>
